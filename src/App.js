@@ -9,8 +9,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 library.add(faTrash, faBars);
 
 const App = () => {
-  /*  ----------- SETTING UP INITIALS STATES */
-
   /* input = la valeur de l'input du formulaire, setInput la fonction pour modifier le state */
   const [input, setInput] = useState("");
   /* task = le tableau des taches entrées dans le form, setTasks la fonction pour modifier le tab  */

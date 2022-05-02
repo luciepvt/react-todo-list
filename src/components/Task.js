@@ -1,10 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Task = ({ tasks, setTasks, title, isDone, index }) => {
-  /*  ------------ SETTING UP THE FUNCTION TO HANDLE THE CLICK ON THE CHECKBOXS */
   const handleClickCheckbox = () => {
-    // ici : tasks = [{ title: "Sortir le chien", isDone: false },{ title: "Aller chercher du pain", isDone: false }]
-    // je fais une copie de task
     const newTasksChecked = [...tasks];
     newTasksChecked.map(() => {
       if (newTasksChecked[index].isDone === true) {
@@ -25,11 +22,7 @@ const Task = ({ tasks, setTasks, title, isDone, index }) => {
     <div className="task">
       <input type="checkbox" onClick={handleClickCheckbox} />
       <p className={isDone && "task-done"}>{title}</p>
-      <FontAwesomeIcon
-        className="trash"
-        icon="trash"
-        onClick={() => handleDelete()}
-      />
+      <FontAwesomeIcon className="trash" icon="trash" onClick={handleDelete} />
     </div>
   );
 };
