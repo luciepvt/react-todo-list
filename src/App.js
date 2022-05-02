@@ -1,25 +1,67 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import Task from "./components/Task";
+import Form from "./components/Form";
+import Search from "./components/Search";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faTrash, faBars } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+library.add(faTrash, faBars);
 
-function App() {
+const App = () => {
+  /*  ----------- SETTING UP INITIALS STATES */
+
+  /* input = la valeur de l'input du formulaire, setInput la fonction pour modifier le state */
+  const [input, setInput] = useState("");
+  /* task = le tableau des taches entrées dans le form, setTasks la fonction pour modifier le tab  */
+  const [tasks, setTasks] = useState([
+    { title: "Sortir le chien", isDone: false },
+    { title: "Aller chercher du pain", isDone: false },
+  ]);
+
+  const [search, setSearch] = useState("");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div>
+      <header>
+        <div className="left-header">
+          <FontAwesomeIcon className="menu" icon="bars" />
+          <h1>Todo list</h1>
+        </div>
       </header>
+      <div className="limit-header"></div>
+      <main>
+        <div>
+          <Search setSearch={setSearch} />
+        </div>
+        <div className="tasks">
+          {/* Pour chaque élément de tasks, je return un component Task */}
+          {/* si tasks = [{ title: "Sortir le chien", isDone: false },{ title: "Aller chercher du pain", isDone: false }] */}
+          {tasks.map((item, index) => {
+            const regex = new RegExp(search, "i");
+            if (regex.test(item.title)) {
+              return (
+                <Task
+                  key={index}
+                  title={item.title}
+                  isDone={item.isDone}
+                  index={index}
+                  tasks={tasks}
+                  setTasks={setTasks}
+                />
+              );
+            }
+          })}
+        </div>
+        <Form
+          input={input}
+          setInput={setInput}
+          tasks={tasks}
+          setTasks={setTasks}
+        />
+      </main>
     </div>
   );
-}
+};
 
 export default App;
